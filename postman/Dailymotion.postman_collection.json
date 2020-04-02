@@ -1,0 +1,933 @@
+{
+	"info": {
+		"_postman_id": "e4a1fd9e-f776-411a-9b96-9340054d7135",
+		"name": "Dailymotion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create video - franklin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59fd1655-604a-446c-a14b-3fdd2496a4fe",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"franklin_video_id\", jsonData.data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"franklin\",\n\t\"thumbnail\": \"https://franklin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/videos",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"videos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create video - tchoupi à l'école",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f292cd7e-eba3-4149-b7ab-0959728b1ee3",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"tchoupi_video_id\", jsonData.data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Tchoupi à l'école\",\n\t\"thumbnail\": \"https://tchoupi\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/videos",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"videos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create video - captain tsubasa",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "278f7a6e-87ab-4f01-beb3-5effdd047614",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"tsubasa_video_id\", jsonData.data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"captain tsubasa\",\n\t\"thumbnail\": \"https://tsubasa\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/videos",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"videos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create video - PSG OM",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f35cd25c-4129-4145-ac08-7f94e775a972",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"psgom_video_id\", jsonData.data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"PSG-OM\",\n\t\"thumbnail\": \"https://psg-om\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/videos",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"videos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create playlist cartoon",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0833e4d1-fa33-480b-97a5-e33932ff067f",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"cartoon_playlist_id\", jsonData.data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"cartoon\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/playlists",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create playlist sport",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d5e12f92-e15c-4f35-9c34-540bcda0514f",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"football_playlist_id\", jsonData.data.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"sport\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/playlists",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update playlist sport to football",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ac42d0a-a9bc-402d-8fad-e03189391949",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"football\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/playlists/{{football_playlist_id}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists",
+						"{{football_playlist_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all videos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1/videos",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"videos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all playlists",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1/playlists",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "link franklin to cartoon",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/playlists/{{cartoon_playlist_id}}/videos/{{franklin_video_id}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists",
+						"{{cartoon_playlist_id}}",
+						"videos",
+						"{{franklin_video_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "link tchoupi to cartoon",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/playlists/{{cartoon_playlist_id}}/videos/{{tchoupi_video_id}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists",
+						"{{cartoon_playlist_id}}",
+						"videos",
+						"{{tchoupi_video_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "link tsubasa to cartoon",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/playlists/{{cartoon_playlist_id}}/videos/{{tsubasa_video_id}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists",
+						"{{cartoon_playlist_id}}",
+						"videos",
+						"{{tsubasa_video_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "link tsubasa to football",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/playlists/{{football_playlist_id}}/videos/{{tsubasa_video_id}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists",
+						"{{football_playlist_id}}",
+						"videos",
+						"{{tsubasa_video_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "link psg om to football",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/playlists/{{football_playlist_id}}/videos/{{psgom_video_id}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists",
+						"{{football_playlist_id}}",
+						"videos",
+						"{{psgom_video_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all videos for cartoon playlist",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/playlists/{{cartoon_playlist_id}}/videos",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists",
+						"{{cartoon_playlist_id}}",
+						"videos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all videos for football playlist",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/playlists/{{football_playlist_id}}/videos",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists",
+						"{{football_playlist_id}}",
+						"videos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "unlink tsubasa from football",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/playlists/{{football_playlist_id}}/videos/{{tsubasa_video_id}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists",
+						"{{football_playlist_id}}",
+						"videos",
+						"{{tsubasa_video_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all videos for football playlist (without tsubasa)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/playlists/{{football_playlist_id}}/videos",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists",
+						"{{football_playlist_id}}",
+						"videos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete playlist cartoon",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e073aa03-808c-4c8c-a395-100c80bed918",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1/playlists/{{cartoon_playlist_id}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists",
+						"{{cartoon_playlist_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete playlist football",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6db4c20a-67cd-452a-81fb-91cd68c29bae",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1/playlists/{{football_playlist_id}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists",
+						"{{football_playlist_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all playlists (should be empty)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1/playlists",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete video franklin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3f0b670a-e5f0-4489-a817-3ba6cd382229",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1/videos/{{franklin_video_id}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"videos",
+						"{{franklin_video_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete video tchoupi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b734738c-ff9a-424e-8132-8c3ac456312e",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1/videos/{{tchoupi_video_id}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"videos",
+						"{{tchoupi_video_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete video captain tsubasa",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5e9af295-c217-4ee2-93c4-758e4bd6cb53",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1/videos/{{tsubasa_video_id}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"videos",
+						"{{tsubasa_video_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete video psg om",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f39db55d-be63-40c2-aa15-b474bdd396ea",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1/videos/{{psgom_video_id}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"videos",
+						"{{psgom_video_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all videos (should be empty)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1/videos",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"videos"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
