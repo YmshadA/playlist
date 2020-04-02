@@ -73,6 +73,12 @@ class Router
             return $this->playlistController->deletePlaylistAction($request, (int)$matches['playlistId']);
         }
 
+        if ($request->getHttpMethod() === Request::HTTP_VERB_PATCH
+            && preg_match('/^\/playlists\/(?<playlistId>\d+)$/', $request->getUri(), $matches)
+        ) {
+            return $this->playlistController->updatePlaylistAction($request, (int)$matches['playlistId']);
+        }
+
         return $this->respond404();
     }
 
