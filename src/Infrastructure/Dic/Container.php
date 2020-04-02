@@ -12,6 +12,7 @@ use Dailymotion\Application\Command\RemoveVideoFromPlaylistCommandHandler;
 use Dailymotion\Application\Command\UpdatePlaylistCommandHandler;
 use Dailymotion\Application\Query\GetAllPlaylistsHandler;
 use Dailymotion\Application\Query\GetAllVideosHandler;
+use Dailymotion\Application\Query\GetAllVideosOrderedByPositionForPlaylistHandler;
 use Dailymotion\Infrastructure\Controller\PlaylistController;
 use Dailymotion\Infrastructure\Controller\VideoController;
 use Dailymotion\Infrastructure\Controller\VideoInPlaylistController;
@@ -47,6 +48,10 @@ class Container
                 $mysqlVideoInPlaylistRepository
             ),
             new RemoveVideoFromPlaylistCommandHandler(
+                $mysqlVideoInPlaylistRepository
+            ),
+            new GetAllVideosOrderedByPositionForPlaylistHandler(
+                $mysqlPlaylistRepository,
                 $mysqlVideoInPlaylistRepository
             )
         );

@@ -29,16 +29,28 @@ class Router
     {
         try {
             if (preg_match(
+                '/^\/playlists\/(?<playlist_id>\d+)\/videos$/',
+                $request->getUri(),
+                $matches
+            )) {
+                return $this->routeToReadVideoInPlaylistController(
+                    $request,
+                    (int)$matches['playlist_id']
+                );
+            }
+
+            if (preg_match(
                 '/^\/playlists\/(?<playlist_id>\d+)\/videos\/(?<video_id>\d+)$/',
                 $request->getUri(),
                 $matches
             )) {
-                return $this->routeToVideoInPlaylistController(
+                return $this->routeToWriteVideoInPlaylistController(
                     $request,
                     (int)$matches['playlist_id'],
                     (int)$matches['video_id']
                 );
             }
+
             if (preg_match('/^\/videos/', $request->getUri())) {
                 return $this->routeToVideosController($request);
             }
@@ -72,7 +84,7 @@ class Router
         return $this->respond404();
     }
 
-    private function routeToVideoInPlaylistController(Request $request, int $playlistId, int $videoId): Response
+    private function routeToWriteVideoInPlaylistController(Request $request, int $playlistId, int $videoId): Response
     {
         if ($request->getHttpMethod() === Request::HTTP_VERB_PUT) {
             return $this->videoInPlaylistController->addVideoToPlaylistAction($request, $playlistId, $videoId);
@@ -80,6 +92,15 @@ class Router
 
         if ($request->getHttpMethod() === Request::HTTP_VERB_DELETE) {
             return $this->videoInPlaylistController->removeVideoToPlaylistAction($request, $playlistId, $videoId);
+        }
+
+        return $this->respond404();
+    }
+
+    private function routeToReadVideoInPlaylistController(Request $request, int $playlistId): Response
+    {
+        if ($request->getHttpMethod() === Request::HTTP_VERB_GET) {
+            return $this->videoInPlaylistController->getAllVideosForPlaylist($request, $playlistId);
         }
 
         return $this->respond404();

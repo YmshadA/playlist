@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Dailymotion\Domain;
 
+use Dailymotion\Domain\Exception\PlaylistNotFoundException;
+
 interface VideoInPlaylistRepository
 {
     /**
@@ -18,4 +20,13 @@ interface VideoInPlaylistRepository
      * @param int $playlistId
      */
     public function removeVideoFromPlaylist(int $videoId, int $playlistId): void;
+
+    /**
+     * @param int $playlistId
+     *
+     * @return VideoCollection
+     *
+     * @throws PlaylistNotFoundException
+     */
+    public function getAllVideoForPlaylist(int $playlistId): VideoCollection;
 }

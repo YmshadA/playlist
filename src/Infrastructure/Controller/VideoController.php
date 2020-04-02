@@ -8,13 +8,15 @@ use Dailymotion\Application\Command\AddVideoCommandHandler;
 use Dailymotion\Application\Command\DeleteVideoCommand;
 use Dailymotion\Application\Command\DeleteVideoCommandHandler;
 use Dailymotion\Application\Query\GetAllVideosHandler;
-use Dailymotion\Domain\Video;
-use Dailymotion\Domain\VideoCollection;
 use Dailymotion\Infrastructure\Http\Request;
 use Dailymotion\Infrastructure\Http\Response;
+use Dailymotion\Infrastructure\Normalizer\VideoCollectionNormalizer;
+use Dailymotion\Infrastructure\Normalizer\VideoNormalizer;
 
 class VideoController
 {
+    use VideoCollectionNormalizer, VideoNormalizer;
+
     private AddVideoCommandHandler $addVideoCommandHandler;
     private GetAllVideosHandler $getAllVideosHandler;
     private DeleteVideoCommandHandler $deleteVideoCommandHandler;
@@ -65,25 +67,5 @@ class VideoController
         $this->deleteVideoCommandHandler->deleteVideo(new DeleteVideoCommand($videoId));
 
         return new Response('', Response::STATUS_NO_CONTENT);
-    }
-
-    private function normalizeVideoCollection(VideoCollection $videoCollection): array
-    {
-        $normalizedVideos = [];
-
-        foreach ($videoCollection as $video) {
-            $normalizedVideos[] = $this->normalizeVideo($video);
-        }
-
-        return $normalizedVideos;
-    }
-
-    private function normalizeVideo(Video $video): array
-    {
-        return [
-            'id' => $video->getId(),
-            'title' => $video->getTitle(),
-            'thumbnail' => $video->getThumbnail(),
-        ];
     }
 }

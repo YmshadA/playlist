@@ -3,11 +3,43 @@ declare(strict_types=1);
 
 namespace Dailymotion\Infrastructure\Persistence;
 
+use Dailymotion\Domain\Exception\PlaylistNotFoundException;
+use Dailymotion\Domain\Video;
+use Dailymotion\Domain\VideoCollection;
 use Dailymotion\Domain\VideoInPlaylistRepository;
 use Dailymotion\Infrastructure\Persistence\Exception\MysqlQueryException;
 
 class MysqlVideoInPlaylistRepository implements VideoInPlaylistRepository
 {
+    public function getAllVideoForPlaylist(int $playlistId): VideoCollection
+    {
+        $pdo = $this->getPDO();
+
+        $sql = 'SELECT v.id, v.title, v.thumbnail
+                FROM dailymotion.video_playlist vp
+                INNER JOIN dailymotion.video v on vp.video_id = v.id
+                WHERE vp.playlist_id = :playlist_id
+                ORDER BY vp.position';
+
+        $statement = $pdo->prepare($sql);
+        $res = $statement->execute([
+            ':playlist_id' => $playlistId,
+        ]);
+
+        if (!$res) {
+            throw new MysqlQueryException($statement->errorInfo()[2], $statement->errorCode());
+        }
+
+        $videos = $statement->fetchAll();
+
+        $videoCollection = new VideoCollection();
+        foreach ($videos as $video) {
+            $videoCollection->add(new Video((int)$video['id'], $video['title'], $video['thumbnail']));
+        }
+
+        return $videoCollection;
+    }
+
     public function removeVideoFromPlaylist(int $videoId, int $playlistId):void
     {
         $pdo = $this->getPDO();
