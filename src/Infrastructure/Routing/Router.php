@@ -5,6 +5,7 @@ namespace Dailymotion\Infrastructure\Routing;
 
 use Dailymotion\Infrastructure\Controller\PlaylistController;
 use Dailymotion\Infrastructure\Controller\VideoController;
+use Dailymotion\Infrastructure\Controller\VideoInPlaylistController;
 use Dailymotion\Infrastructure\Http\Request;
 use Dailymotion\Infrastructure\Http\Response;
 
@@ -12,18 +13,32 @@ class Router
 {
     private VideoController $videosController;
     private PlaylistController $playlistController;
+    private VideoInPlaylistController $videoInPlaylistController;
 
     public function __construct(
         VideoController $videosController,
-        PlaylistController $playlistController
+        PlaylistController $playlistController,
+        VideoInPlaylistController $videoInPlaylistController
     ) {
         $this->videosController = $videosController;
         $this->playlistController = $playlistController;
+        $this->videoInPlaylistController = $videoInPlaylistController;
     }
 
     public function handle(Request $request): Response
     {
         try {
+            if (preg_match(
+                '/^\/playlists\/(?<playlist_id>\d+)\/videos\/(?<video_id>\d+)$/',
+                $request->getUri(),
+                $matches
+            )) {
+                return $this->routeToVideoInPlaylistController(
+                    $request,
+                    (int)$matches['playlist_id'],
+                    (int)$matches['video_id']
+                );
+            }
             if (preg_match('/^\/videos/', $request->getUri())) {
                 return $this->routeToVideosController($request);
             }
@@ -52,6 +67,15 @@ class Router
             && preg_match('/^\/videos\/(?<videoId>\d+)$/', $request->getUri(), $matches)
         ) {
             return $this->videosController->deleteVideoAction($request, (int)$matches['videoId']);
+        }
+
+        return $this->respond404();
+    }
+
+    private function routeToVideoInPlaylistController(Request $request, int $playlistId, int $videoId): Response
+    {
+        if ($request->getHttpMethod() === Request::HTTP_VERB_PUT) {
+            return $this->videoInPlaylistController->addVideoToPlaylistAction($request, $playlistId, $videoId);
         }
 
         return $this->respond404();

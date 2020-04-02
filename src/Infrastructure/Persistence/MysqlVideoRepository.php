@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Dailymotion\Infrastructure\Persistence;
 
+use Dailymotion\Domain\Exception\VideoNotFoundException;
 use Dailymotion\Domain\Video;
 use Dailymotion\Domain\VideoCollection;
 use Dailymotion\Domain\VideoRepository;
@@ -46,6 +47,30 @@ class MysqlVideoRepository implements VideoRepository
         }
 
         return $videoCollection;
+    }
+
+    public function getVideo(int $videoId): Video
+    {
+        $pdo = $this->getPDO();
+
+        $sql = 'SELECT id, title, thumbnail FROM dailymotion.video where id = :id';
+
+        $statement = $pdo->prepare($sql);
+        $res = $statement->execute([
+            ':id' => $videoId
+        ]);
+
+        if (!$res) {
+            throw new MysqlQueryException($statement->errorInfo()[2], $statement->errorCode());
+        }
+
+        $video = $statement->fetch();
+
+        if (false === $video) {
+            throw new VideoNotFoundException($videoId);
+        }
+
+        return new Video((int)$video['id'], $video['title'], $video['thumbnail']);
     }
 
     public function deleteVideo(int $videoId):void

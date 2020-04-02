@@ -2,6 +2,7 @@
 
 use Dailymotion\Infrastructure\Controller\PlaylistController;
 use Dailymotion\Infrastructure\Controller\VideoController;
+use Dailymotion\Infrastructure\Controller\VideoInPlaylistController;
 use Dailymotion\Infrastructure\Dic\Container;
 use Dailymotion\Infrastructure\Routing\Router;
 
@@ -14,6 +15,7 @@ $request = Dailymotion\Infrastructure\Http\Request::createRequest();
 $router = new Router(
     $container[VideoController::class],
     $container[PlaylistController::class],
+    $container[VideoInPlaylistController::class],
 );
 
 $response = $router->handle($request);
