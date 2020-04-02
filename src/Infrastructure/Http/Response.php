@@ -7,6 +7,7 @@ class Response
 {
     const STATUS_OK = 200;
     const STATUS_CREATED = 201;
+    const STATUS_NO_CONTENT = 204;
     const STATUS_BAD_REQUEST = 400;
     const STATUS_NOT_FOUND = 404;
     const INTERNAL_SERVER_ERROR = 500;
@@ -14,6 +15,7 @@ class Response
     const STATUS_TEXTS = [
         self::STATUS_OK => 'Ok',
         self::STATUS_CREATED => 'Created',
+        self::STATUS_NO_CONTENT => 'No Content',
         self::STATUS_BAD_REQUEST => 'Bad Request',
         self::STATUS_NOT_FOUND => 'Not Found',
         self::INTERNAL_SERVER_ERROR => 'Internal Server Error',

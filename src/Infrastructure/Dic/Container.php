@@ -5,6 +5,8 @@ namespace Dailymotion\Infrastructure\Dic;
 
 use Dailymotion\Application\Command\AddPlaylistCommandHandler;
 use Dailymotion\Application\Command\AddVideoCommandHandler;
+use Dailymotion\Application\Command\DeletePlaylistCommandHandler;
+use Dailymotion\Application\Command\DeleteVideoCommandHandler;
 use Dailymotion\Application\Query\GetAllPlaylistsHandler;
 use Dailymotion\Application\Query\GetAllVideosHandler;
 use Dailymotion\Infrastructure\Controller\PlaylistController;
@@ -22,6 +24,9 @@ class Container
             ),
             new GetAllVideosHandler(
                 new MysqlVideoRepository()
+            ),
+            new DeleteVideoCommandHandler(
+                new MysqlVideoRepository()
             )
         );
 
@@ -30,6 +35,9 @@ class Container
                 new MysqlPlaylistRepository()
             ),
             new GetAllPlaylistsHandler(
+                new MysqlPlaylistRepository()
+            ),
+            new DeletePlaylistCommandHandler(
                 new MysqlPlaylistRepository()
             )
         );

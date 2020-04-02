@@ -16,4 +16,9 @@ interface VideoRepository
      * @return VideoCollection
      */
     public function getAllVideos(): VideoCollection;
+
+    /**
+     * @param int $videoId
+     */
+    public function deleteVideo(int $videoId): void;
 }

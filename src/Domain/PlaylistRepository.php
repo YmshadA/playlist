@@ -15,4 +15,9 @@ interface PlaylistRepository
      * @return PlaylistCollection
      */
     public function getAllPlaylist(): PlaylistCollection;
+
+    /**
+     * @param int $playlistId
+     */
+    public function deletePlaylist(int $playlistId): void;
 }

@@ -48,6 +48,12 @@ class Router
             return $this->videosController->getVideosAction($request);
         }
 
+        if ($request->getHttpMethod() === Request::HTTP_VERB_DELETE
+            && preg_match('/^\/videos\/(?<videoId>\d+)$/', $request->getUri(), $matches)
+        ) {
+            return $this->videosController->deleteVideoAction($request, (int)$matches['videoId']);
+        }
+
         return $this->respond404();
     }
 
@@ -59,6 +65,12 @@ class Router
 
         if ($request->getUri() === '/playlists' && $request->getHttpMethod() === Request::HTTP_VERB_GET) {
             return $this->playlistController->getPlaylistsAction($request);
+        }
+
+        if ($request->getHttpMethod() === Request::HTTP_VERB_DELETE
+            && preg_match('/^\/playlists\/(?<playlistId>\d+)$/', $request->getUri(), $matches)
+        ) {
+            return $this->playlistController->deletePlaylistAction($request, (int)$matches['playlistId']);
         }
 
         return $this->respond404();

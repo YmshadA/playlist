@@ -5,6 +5,8 @@ namespace Dailymotion\Infrastructure\Controller;
 
 use Dailymotion\Application\Command\AddVideoCommand;
 use Dailymotion\Application\Command\AddVideoCommandHandler;
+use Dailymotion\Application\Command\DeleteVideoCommand;
+use Dailymotion\Application\Command\DeleteVideoCommandHandler;
 use Dailymotion\Application\Query\GetAllVideosHandler;
 use Dailymotion\Domain\Video;
 use Dailymotion\Domain\VideoCollection;
@@ -15,13 +17,16 @@ class VideoController
 {
     private AddVideoCommandHandler $addVideoCommandHandler;
     private GetAllVideosHandler $getAllVideosHandler;
+    private DeleteVideoCommandHandler $deleteVideoCommandHandler;
 
     public function __construct(
         AddVideoCommandHandler $addVideoCommandHandler,
-        GetAllVideosHandler $getAllVideosHandler
+        GetAllVideosHandler $getAllVideosHandler,
+        DeleteVideoCommandHandler $deleteVideoCommandHandler
     ) {
         $this->addVideoCommandHandler = $addVideoCommandHandler;
         $this->getAllVideosHandler = $getAllVideosHandler;
+        $this->deleteVideoCommandHandler = $deleteVideoCommandHandler;
     }
 
     public function createVideoAction(Request $request): Response
@@ -53,6 +58,13 @@ class VideoController
             ], JSON_THROW_ON_ERROR),
             Response::STATUS_OK
         );
+    }
+
+    public function deleteVideoAction(Request $request, int $videoId): Response
+    {
+        $this->deleteVideoCommandHandler->deleteVideo(new DeleteVideoCommand($videoId));
+
+        return new Response('', Response::STATUS_NO_CONTENT);
     }
 
     private function normalizeVideoCollection(VideoCollection $videoCollection): array

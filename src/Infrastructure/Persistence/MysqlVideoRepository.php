@@ -12,11 +12,7 @@ class MysqlVideoRepository implements VideoRepository
 {
     public function addVideo(string $title, string $thumbnail): Video
     {
-        $pdo = new \PDO(
-            'mysql:host=mysql;dbname=dailymotion',
-            'dailymotion',
-            'dailymotion'
-        );
+        $pdo = $this->getPDO();
 
         $sql = 'INSERT INTO dailymotion.video(title, thumbnail) VALUES (:title, :thumbnail)';
 
@@ -37,16 +33,11 @@ class MysqlVideoRepository implements VideoRepository
 
     public function getAllVideos(): VideoCollection
     {
-        $pdo = new \PDO(
-            'mysql:host=mysql;dbname=dailymotion',
-            'dailymotion',
-            'dailymotion'
-        );
+        $pdo = $this->getPDO();
 
         $sql = 'SELECT id, title, thumbnail FROM dailymotion.video';
 
         $statement = $pdo->query($sql);
-
         $videos = $statement->fetchAll();
 
         $videoCollection = new VideoCollection();
@@ -55,5 +46,30 @@ class MysqlVideoRepository implements VideoRepository
         }
 
         return $videoCollection;
+    }
+
+    public function deleteVideo(int $videoId):void
+    {
+        $pdo = $this->getPDO();
+
+        $sql = 'DELETE FROM dailymotion.video WHERE id = :id';
+
+        $statement = $pdo->prepare($sql);
+        $res = $statement->execute([
+            ':id' => $videoId
+        ]);
+
+        if (!$res) {
+            throw new MysqlQueryException($statement->errorInfo()[2], $statement->errorCode());
+        }
+    }
+
+    private function getPDO(): \PDO
+    {
+        return new \PDO(
+            'mysql:host=mysql;dbname=dailymotion',
+            'dailymotion',
+            'dailymotion'
+        );
     }
 }

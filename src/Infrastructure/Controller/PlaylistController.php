@@ -5,6 +5,8 @@ namespace Dailymotion\Infrastructure\Controller;
 
 use Dailymotion\Application\Command\AddPlaylistCommand;
 use Dailymotion\Application\Command\AddPlaylistCommandHandler;
+use Dailymotion\Application\Command\DeletePlaylistCommand;
+use Dailymotion\Application\Command\DeletePlaylistCommandHandler;
 use Dailymotion\Application\Query\GetAllPlaylistsHandler;
 use Dailymotion\Domain\Playlist;
 use Dailymotion\Domain\PlaylistCollection;
@@ -15,13 +17,16 @@ class PlaylistController
 {
     private AddPlaylistCommandHandler $addPlaylistCommandHandler;
     private GetAllPlaylistsHandler $getAllPlaylistsHandler;
+    private DeletePlaylistCommandHandler $deletePlaylistCommandHandler;
 
     public function __construct(
         AddPlaylistCommandHandler $addPlaylistCommandHandler,
-        GetAllPlaylistsHandler $getAllPlaylistsHandler
+        GetAllPlaylistsHandler $getAllPlaylistsHandler,
+        DeletePlaylistCommandHandler $deletePlaylistCommandHandler
     ) {
         $this->addPlaylistCommandHandler = $addPlaylistCommandHandler;
         $this->getAllPlaylistsHandler = $getAllPlaylistsHandler;
+        $this->deletePlaylistCommandHandler = $deletePlaylistCommandHandler;
     }
 
     public function createPlaylistAction(Request $request): Response
@@ -53,6 +58,13 @@ class PlaylistController
             ], JSON_THROW_ON_ERROR),
             Response::STATUS_OK
         );
+    }
+
+    public function deletePlaylistAction(Request $request, int $playlistId): Response
+    {
+        $this->deletePlaylistCommandHandler->deletePlaylist(new DeletePlaylistCommand($playlistId));
+
+        return new Response('', Response::STATUS_NO_CONTENT);
     }
 
     private function normalizePlaylistCollection(PlaylistCollection $playlistCollection): array

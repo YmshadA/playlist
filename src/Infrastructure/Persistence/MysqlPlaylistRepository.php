@@ -12,11 +12,7 @@ class MysqlPlaylistRepository implements PlaylistRepository
 {
     public function addPlaylist(string $name): Playlist
     {
-        $pdo = new \PDO(
-            'mysql:host=mysql;dbname=dailymotion',
-            'dailymotion',
-            'dailymotion'
-        );
+        $pdo = $this->getPDO();
 
         $sql = 'INSERT INTO dailymotion.playlist(name) VALUES (:name)';
 
@@ -36,11 +32,7 @@ class MysqlPlaylistRepository implements PlaylistRepository
 
     public function getAllPlaylist(): PlaylistCollection
     {
-        $pdo = new \PDO(
-            'mysql:host=mysql;dbname=dailymotion',
-            'dailymotion',
-            'dailymotion'
-        );
+        $pdo = $this->getPDO();
 
         $sql = 'SELECT id, name FROM dailymotion.playlist';
 
@@ -54,5 +46,30 @@ class MysqlPlaylistRepository implements PlaylistRepository
         }
 
         return $playlistCollection;
+    }
+
+    public function deletePlaylist(int $playlistId):void
+    {
+        $pdo = $this->getPDO();
+
+        $sql = 'DELETE FROM dailymotion.playlist WHERE id = :id';
+
+        $statement = $pdo->prepare($sql);
+        $res = $statement->execute([
+            ':id' => $playlistId
+        ]);
+
+        if (!$res) {
+            throw new MysqlQueryException($statement->errorInfo()[2], $statement->errorCode());
+        }
+    }
+
+    private function getPDO(): \PDO
+    {
+        return new \PDO(
+            'mysql:host=mysql;dbname=dailymotion',
+            'dailymotion',
+            'dailymotion'
+        );
     }
 }
