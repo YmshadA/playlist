@@ -8,6 +8,7 @@ use Dailymotion\Application\Command\AddVideoCommandHandler;
 use Dailymotion\Application\Command\AddVideoToPlaylistCommandHandler;
 use Dailymotion\Application\Command\DeletePlaylistCommandHandler;
 use Dailymotion\Application\Command\DeleteVideoCommandHandler;
+use Dailymotion\Application\Command\RemoveVideoFromPlaylistCommandHandler;
 use Dailymotion\Application\Command\UpdatePlaylistCommandHandler;
 use Dailymotion\Application\Query\GetAllPlaylistsHandler;
 use Dailymotion\Application\Query\GetAllVideosHandler;
@@ -43,6 +44,9 @@ class Container
             new AddVideoToPlaylistCommandHandler(
                 $mysqlPlaylistRepository,
                 $mysqlVideoRepository,
+                $mysqlVideoInPlaylistRepository
+            ),
+            new RemoveVideoFromPlaylistCommandHandler(
                 $mysqlVideoInPlaylistRepository
             )
         );

@@ -12,4 +12,10 @@ interface VideoInPlaylistRepository
      * @return int
      */
     public function addVideoToPlaylist(int $videoId, int $playlistId): void;
+
+    /**
+     * @param int $videoId
+     * @param int $playlistId
+     */
+    public function removeVideoFromPlaylist(int $videoId, int $playlistId): void;
 }

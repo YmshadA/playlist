@@ -8,6 +8,25 @@ use Dailymotion\Infrastructure\Persistence\Exception\MysqlQueryException;
 
 class MysqlVideoInPlaylistRepository implements VideoInPlaylistRepository
 {
+    public function removeVideoFromPlaylist(int $videoId, int $playlistId):void
+    {
+        $pdo = $this->getPDO();
+
+        $sql = 'DELETE FROM dailymotion.video_playlist 
+                WHERE playlist_id = :playlist_id
+                AND video_id = :video_id';
+
+        $statement = $pdo->prepare($sql);
+        $res = $statement->execute([
+            ':video_id' => $videoId,
+            ':playlist_id' => $playlistId,
+        ]);
+
+        if (!$res) {
+            throw new MysqlQueryException($statement->errorInfo()[2], $statement->errorCode());
+        }
+    }
+
     public function addVideoToPlaylist(int $videoId, int $playlistId): void
     {
         $pdo = $this->getPDO();

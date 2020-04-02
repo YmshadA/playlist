@@ -78,6 +78,10 @@ class Router
             return $this->videoInPlaylistController->addVideoToPlaylistAction($request, $playlistId, $videoId);
         }
 
+        if ($request->getHttpMethod() === Request::HTTP_VERB_DELETE) {
+            return $this->videoInPlaylistController->removeVideoToPlaylistAction($request, $playlistId, $videoId);
+        }
+
         return $this->respond404();
     }
 
