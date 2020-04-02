@@ -1,0 +1,8 @@
+{
+  "name": "dailymotion/video",
+  "autoload": {
+    "psr-4": {
+      "Dailymotion\\": "src/"
+    }
+  }
+}
