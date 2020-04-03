@@ -11,9 +11,16 @@ use Dailymotion\Infrastructure\Persistence\Exception\MysqlQueryException;
 
 class MysqlPlaylistRepository implements PlaylistRepository
 {
+    private MysqlConnection $mysqlConnection;
+
+    public function __construct(MysqlConnection $mysqlConnection)
+    {
+        $this->mysqlConnection = $mysqlConnection;
+    }
+
     public function addPlaylist(string $name): Playlist
     {
-        $pdo = $this->getPDO();
+        $pdo = $this->mysqlConnection->getPDO();
 
         $sql = 'INSERT INTO dailymotion.playlist(name) VALUES (:name)';
 
@@ -33,7 +40,7 @@ class MysqlPlaylistRepository implements PlaylistRepository
 
     public function getAllPlaylist(): PlaylistCollection
     {
-        $pdo = $this->getPDO();
+        $pdo = $this->mysqlConnection->getPDO();
 
         $sql = 'SELECT id, name FROM dailymotion.playlist';
 
@@ -50,7 +57,7 @@ class MysqlPlaylistRepository implements PlaylistRepository
 
     public function getPlaylist(int $playlistId): Playlist
     {
-        $pdo = $this->getPDO();
+        $pdo = $this->mysqlConnection->getPDO();
 
         $sql = 'SELECT id, name FROM dailymotion.playlist where id = :id';
 
@@ -74,7 +81,7 @@ class MysqlPlaylistRepository implements PlaylistRepository
 
     public function deletePlaylist(int $playlistId):void
     {
-        $pdo = $this->getPDO();
+        $pdo = $this->mysqlConnection->getPDO();
 
         $sql = 'DELETE FROM dailymotion.playlist WHERE id = :id';
 
@@ -88,9 +95,9 @@ class MysqlPlaylistRepository implements PlaylistRepository
         }
     }
 
-    public function updatePlaylist(int $playlistId, string $name): void
+    public function updatePlaylist(int $playlistId, string $name): Playlist
     {
-        $pdo = $this->getPDO();
+        $pdo = $this->mysqlConnection->getPDO();
 
         $sql = 'UPDATE dailymotion.playlist SET name = :name WHERE id = :id';
 
@@ -103,14 +110,7 @@ class MysqlPlaylistRepository implements PlaylistRepository
         if (!$res) {
             throw new MysqlQueryException($statement->errorInfo()[2], $statement->errorCode());
         }
-    }
 
-    private function getPDO(): \PDO
-    {
-        return new \PDO(
-            'mysql:host=mysql;dbname=dailymotion',
-            'dailymotion',
-            'dailymotion'
-        );
+        return new Playlist($playlistId, $name);
     }
 }

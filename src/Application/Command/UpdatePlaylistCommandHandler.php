@@ -15,11 +15,11 @@ class UpdatePlaylistCommandHandler
         $this->playlistRepository = $playlistRepository;
     }
 
-    public function updatePlaylist(UpdatePlaylistCommand $updatePlaylistCommand): void
+    public function updatePlaylist(UpdatePlaylistCommand $updatePlaylistCommand): Playlist
     {
         $this->playlistRepository->getPlaylist($updatePlaylistCommand->getPlaylistId());
 
-        $this->playlistRepository->updatePlaylist(
+        return $this->playlistRepository->updatePlaylist(
             $updatePlaylistCommand->getPlaylistId(),
             $updatePlaylistCommand->getName()
         );

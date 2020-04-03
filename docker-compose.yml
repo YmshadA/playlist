@@ -6,6 +6,7 @@ services:
         volumes:
             - ./:/var/www
         environment:
+          MYSQL_HOSTNAME: mysql
           MYSQL_DATABASE: dailymotion
           MYSQL_USER: dailymotion
           MYSQL_PASSWORD: dailymotion

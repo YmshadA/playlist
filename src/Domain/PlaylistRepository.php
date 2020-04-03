@@ -35,6 +35,8 @@ interface PlaylistRepository
     /**
      * @param int    $playlistId
      * @param string $name
+     *
+     * @return Playlist
      */
-    public function updatePlaylist(int $playlistId, string $name): void;
+    public function updatePlaylist(int $playlistId, string $name): Playlist;
 }

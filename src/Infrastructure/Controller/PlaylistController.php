@@ -56,11 +56,11 @@ class PlaylistController
 
     public function getPlaylistsAction(Request $request): Response
     {
-        $videos = $this->getAllPlaylistsHandler->getAllPlaylists();
+        $playlists = $this->getAllPlaylistsHandler->getAllPlaylists();
 
         return new Response(
             json_encode([
-                'data' => $this->normalizePlaylistCollection($videos)
+                'data' => $this->normalizePlaylistCollection($playlists)
             ], JSON_THROW_ON_ERROR),
             Response::STATUS_OK
         );
@@ -83,7 +83,7 @@ class PlaylistController
         }
 
         try {
-            $this->updatePlaylistCommandHandler->updatePlaylist(new UpdatePlaylistCommand(
+            $playlist = $this->updatePlaylistCommandHandler->updatePlaylist(new UpdatePlaylistCommand(
                 $playlistId,
                 $data['name']
             ));
@@ -92,7 +92,12 @@ class PlaylistController
             return new Response(json_encode($error, JSON_THROW_ON_ERROR), Response::STATUS_NOT_FOUND);
         }
 
-        return new Response('', Response::STATUS_NO_CONTENT);
+        return new Response(
+            json_encode([
+                'data' => $this->normalizePlaylist($playlist)
+            ], JSON_THROW_ON_ERROR),
+            Response::STATUS_OK
+        );
     }
 
     private function normalizePlaylistCollection(PlaylistCollection $playlistCollection): array

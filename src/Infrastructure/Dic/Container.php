@@ -16,6 +16,7 @@ use Dailymotion\Application\Query\GetAllVideosOrderedByPositionForPlaylistHandle
 use Dailymotion\Infrastructure\Controller\PlaylistController;
 use Dailymotion\Infrastructure\Controller\VideoController;
 use Dailymotion\Infrastructure\Controller\VideoInPlaylistController;
+use Dailymotion\Infrastructure\Persistence\MysqlConnection;
 use Dailymotion\Infrastructure\Persistence\MysqlPlaylistRepository;
 use Dailymotion\Infrastructure\Persistence\MysqlVideoInPlaylistRepository;
 use Dailymotion\Infrastructure\Persistence\MysqlVideoRepository;
@@ -24,9 +25,15 @@ class Container
 {
     public static function createContainer(): array
     {
-        $mysqlVideoRepository = new MysqlVideoRepository();
-        $mysqlPlaylistRepository = new MysqlPlaylistRepository();
-        $mysqlVideoInPlaylistRepository = new MysqlVideoInPlaylistRepository();
+        $mysqlConnection = new MysqlConnection(
+            getenv('MYSQL_HOSTNAME'),
+            getenv('MYSQL_DATABASE'),
+            getenv('MYSQL_USER'),
+            getenv('MYSQL_PASSWORD')
+        );
+        $mysqlVideoRepository = new MysqlVideoRepository($mysqlConnection);
+        $mysqlPlaylistRepository = new MysqlPlaylistRepository($mysqlConnection);
+        $mysqlVideoInPlaylistRepository = new MysqlVideoInPlaylistRepository($mysqlConnection);
 
         $videosController = new VideoController(
             new AddVideoCommandHandler($mysqlVideoRepository),

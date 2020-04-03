@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Dailymotion\Infrastructure\Persistence;
 
-use Dailymotion\Domain\Exception\PlaylistNotFoundException;
 use Dailymotion\Domain\Video;
 use Dailymotion\Domain\VideoCollection;
 use Dailymotion\Domain\VideoInPlaylistRepository;
@@ -11,9 +10,16 @@ use Dailymotion\Infrastructure\Persistence\Exception\MysqlQueryException;
 
 class MysqlVideoInPlaylistRepository implements VideoInPlaylistRepository
 {
+    private MysqlConnection $mysqlConnection;
+
+    public function __construct(MysqlConnection $mysqlConnection)
+    {
+        $this->mysqlConnection = $mysqlConnection;
+    }
+
     public function getAllVideoForPlaylist(int $playlistId): VideoCollection
     {
-        $pdo = $this->getPDO();
+        $pdo = $this->mysqlConnection->getPDO();
 
         $sql = 'SELECT v.id, v.title, v.thumbnail
                 FROM dailymotion.video_playlist vp
@@ -42,7 +48,7 @@ class MysqlVideoInPlaylistRepository implements VideoInPlaylistRepository
 
     public function removeVideoFromPlaylist(int $videoId, int $playlistId):void
     {
-        $pdo = $this->getPDO();
+        $pdo = $this->mysqlConnection->getPDO();
 
         $sql = 'DELETE FROM dailymotion.video_playlist 
                 WHERE playlist_id = :playlist_id
@@ -61,7 +67,7 @@ class MysqlVideoInPlaylistRepository implements VideoInPlaylistRepository
 
     public function addVideoToPlaylist(int $videoId, int $playlistId): void
     {
-        $pdo = $this->getPDO();
+        $pdo = $this->mysqlConnection->getPDO();
 
         $nextPosition = $this->getNextPositionFor($pdo, $playlistId);
 
@@ -102,14 +108,5 @@ class MysqlVideoInPlaylistRepository implements VideoInPlaylistRepository
         $nextPosition = $statement->fetch();
 
         return (int)$nextPosition['next_position'];
-    }
-
-    private function getPDO(): \PDO
-    {
-        return new \PDO(
-            'mysql:host=mysql;dbname=dailymotion',
-            'dailymotion',
-            'dailymotion'
-        );
     }
 }

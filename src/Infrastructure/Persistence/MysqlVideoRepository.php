@@ -11,9 +11,16 @@ use Dailymotion\Infrastructure\Persistence\Exception\MysqlQueryException;
 
 class MysqlVideoRepository implements VideoRepository
 {
+    private MysqlConnection $mysqlConnection;
+
+    public function __construct(MysqlConnection $mysqlConnection)
+    {
+        $this->mysqlConnection = $mysqlConnection;
+    }
+
     public function addVideo(string $title, string $thumbnail): Video
     {
-        $pdo = $this->getPDO();
+        $pdo = $this->mysqlConnection->getPDO();
 
         $sql = 'INSERT INTO dailymotion.video(title, thumbnail) VALUES (:title, :thumbnail)';
 
@@ -34,7 +41,7 @@ class MysqlVideoRepository implements VideoRepository
 
     public function getAllVideos(): VideoCollection
     {
-        $pdo = $this->getPDO();
+        $pdo = $this->mysqlConnection->getPDO();
 
         $sql = 'SELECT id, title, thumbnail FROM dailymotion.video';
 
@@ -51,7 +58,7 @@ class MysqlVideoRepository implements VideoRepository
 
     public function getVideo(int $videoId): Video
     {
-        $pdo = $this->getPDO();
+        $pdo = $this->mysqlConnection->getPDO();
 
         $sql = 'SELECT id, title, thumbnail FROM dailymotion.video where id = :id';
 
@@ -75,7 +82,7 @@ class MysqlVideoRepository implements VideoRepository
 
     public function deleteVideo(int $videoId):void
     {
-        $pdo = $this->getPDO();
+        $pdo = $this->mysqlConnection->getPDO();
 
         $sql = 'DELETE FROM dailymotion.video WHERE id = :id';
 
@@ -87,14 +94,5 @@ class MysqlVideoRepository implements VideoRepository
         if (!$res) {
             throw new MysqlQueryException($statement->errorInfo()[2], $statement->errorCode());
         }
-    }
-
-    private function getPDO(): \PDO
-    {
-        return new \PDO(
-            'mysql:host=mysql;dbname=dailymotion',
-            'dailymotion',
-            'dailymotion'
-        );
     }
 }
