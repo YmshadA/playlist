@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace Dailymotion\Domain;
 
+/**
+ * This class represents what is a Playlist, without any infrastructure informations.
+ *
+ * Class Playlist
+ * @package Dailymotion\Domain
+ */
 class Playlist
 {
     private int $id;

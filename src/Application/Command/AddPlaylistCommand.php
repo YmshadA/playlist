@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace Dailymotion\Application\Command;
 
+/**
+ * This class represents the intention of the user, and what it should be handled.
+ *
+ * Class AddPlaylistCommand
+ * @package Dailymotion\Application\Command
+ */
 class AddPlaylistCommand
 {
     private string $name;

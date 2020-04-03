@@ -6,6 +6,13 @@ namespace Dailymotion\Application\Command;
 use Dailymotion\Domain\Playlist;
 use Dailymotion\Domain\PlaylistRepository;
 
+/**
+ * This class handle the AddPlaylistCommand, and knows what to do with that command.
+ * In this case, it is very simple.
+ *
+ * Class AddPlaylistCommandHandler
+ * @package Dailymotion\Application\Command
+ */
 class AddPlaylistCommandHandler
 {
     private PlaylistRepository $playlistRepository;

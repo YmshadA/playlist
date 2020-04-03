@@ -4,6 +4,13 @@ namespace Dailymotion\Domain;
 
 use Dailymotion\Domain\Exception\PlaylistNotFoundException;
 
+/**
+ * This interface lists all the possibilities about a Playlist. It is used in Application layer.
+ * So the Application and Domain layer does not know about the concrete implementation.
+ *
+ * Interface PlaylistRepository
+ * @package Dailymotion\Domain
+ */
 interface PlaylistRepository
 {
     /**

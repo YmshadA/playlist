@@ -302,7 +302,7 @@
 						"id": "0ac42d0a-a9bc-402d-8fad-e03189391949",
 						"exec": [
 							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
 							"});",
 							""
 						],
@@ -639,6 +639,38 @@
 			"response": []
 		},
 		{
+			"name": "unlink tchoupi from cartoon (should keep the order)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/playlists/{{cartoon_playlist_id}}/videos/{{tchoupi_video_id}}",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists",
+						"{{cartoon_playlist_id}}",
+						"videos",
+						"{{tchoupi_video_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "get all videos for football playlist (without tsubasa)",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -666,6 +698,40 @@
 					"path": [
 						"playlists",
 						"{{football_playlist_id}}",
+						"videos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all videos for cartoon playlist (same order without tchoupi)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1/playlists/{{cartoon_playlist_id}}/videos",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"playlists",
+						"{{cartoon_playlist_id}}",
 						"videos"
 					]
 				}
