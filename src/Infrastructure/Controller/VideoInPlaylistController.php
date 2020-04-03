@@ -8,6 +8,8 @@ use Dailymotion\Application\Command\AddVideoToPlaylistCommandHandler;
 use Dailymotion\Application\Command\RemoveVideoFromPlaylistCommand;
 use Dailymotion\Application\Command\RemoveVideoFromPlaylistCommandHandler;
 use Dailymotion\Application\Query\GetAllVideosOrderedByPositionForPlaylistHandler;
+use Dailymotion\Domain\Exception\PlaylistNotFoundException;
+use Dailymotion\Domain\Exception\VideoNotFoundException;
 use Dailymotion\Infrastructure\Http\Request;
 use Dailymotion\Infrastructure\Http\Response;
 use Dailymotion\Infrastructure\Normalizer\VideoCollectionNormalizer;
@@ -32,9 +34,14 @@ class VideoInPlaylistController
 
     public function addVideoToPlaylistAction(Request $request, int $playlistId, int $videoId): Response
     {
-        $this->addVideoToPlaylistCommandHandler->addVideoToPlaylist(
-            new AddVideoToPlaylistCommand($videoId, $playlistId)
-        );
+        try {
+            $this->addVideoToPlaylistCommandHandler->addVideoToPlaylist(
+                new AddVideoToPlaylistCommand($videoId, $playlistId)
+            );
+        } catch (PlaylistNotFoundException|VideoNotFoundException $e) {
+            $error = ['error' => $e->getMessage()];
+            return new Response(json_encode($error, JSON_THROW_ON_ERROR), Response::STATUS_NOT_FOUND);
+        }
 
         return new Response('', Response::STATUS_CREATED);
     }
